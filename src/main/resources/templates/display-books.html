@@ -2,17 +2,23 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>display-books</title>
+    <title>Display Books</title>
 </head>
 <body>
-<h1>
-    Wszystkie książki:
-</h1>
-<ul>
-    <li th:each = "book : ${books}">
-        <span th:text= "${book.title}">Tytuł</span>
-        <span th:text="${book.author}">Autor</span>
-    </li>
-</ul>
+<h1>Wszystkie książki:</h1>
+<table>
+    <thead>
+    <tr>
+        <th>Tytuł</th>
+        <th>Autor</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="book : ${books}">
+        <td th:text="${book.title}"></td>
+        <td th:text="${book.author}"></td>
+    </tr>
+    </tbody>
+</table>
 </body>
 </html>

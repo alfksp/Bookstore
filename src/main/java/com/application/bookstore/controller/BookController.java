@@ -20,7 +20,6 @@ public class BookController {
         List<Book> books = bookService.findAll();
         System.out.println(books.size());
         model.addAttribute("books", books);
-
         return "display-books";
     }
 }
