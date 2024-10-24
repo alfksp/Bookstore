@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Szczegóły książki</title>
+</head>
+<body>
+<h1>Szczegóły książki</h1>
+<div th:if="${book != null}">
+    <table>
+        <thead>
+        <tr>
+            <th>Lp.</th>
+            <th>Tytuł</th>
+            <th>Autor</th>
+            <th>Rok wydania</th>
+            <th>Cena</th>
+            <th>Dostęna ilość</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td th:text="${book.id}"></td>
+            <td th:text="${book.title}"></td>
+            <td th:text="${book.author}"></td>
+            <td th:text="${book.year}"></td>
+            <td th:text="${book.price}"></td>
+            <td th:text="${book.booksAvailable}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div th:if="${book == null}">
+    <p>Brak książki o podanym ID</p>
+</div>
+</body>
+</html>
