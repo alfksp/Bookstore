@@ -5,6 +5,7 @@ import com.application.bookstore.service.BookService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
@@ -20,6 +21,13 @@ public class BookController {
         List<Book> books = bookService.findAll();
         model.addAttribute("books", books);
         return "display-books";
+    }
+
+    @GetMapping("/display-book/{id}")
+    public String displayBookById(@PathVariable long id, Model model){
+        Book book = bookService.findById(id);
+        model.addAttribute("book", book);
+        return "display-book";
     }
 }
 

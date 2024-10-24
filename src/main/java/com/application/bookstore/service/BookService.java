@@ -16,7 +16,7 @@ public class BookService {
     }
 
     public List<Book> findAll() {
-        log.info("Display all books: ");
+        log.info("Display all books");
         return bookRepository.findAll();
     }
 
