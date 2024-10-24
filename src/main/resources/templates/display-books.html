@@ -11,12 +11,23 @@
     <tr>
         <th>Tytuł</th>
         <th>Autor</th>
+        <th>Rok wydania</th>
+        <th>Cena</th>
+        <th>Dostęna ilość</th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="book : ${books}">
         <td th:text="${book.title}"></td>
         <td th:text="${book.author}"></td>
+        <td th:text="${book.year}"></td>
+        <td th:text="${book.price}"></td>
+        <td th:text="${book.booksAvailable}"></td>
+        <td>
+            <button>
+                <input type="button" value="Do koszyka">
+            </button>
+        </td>
     </tr>
     </tbody>
 </table>

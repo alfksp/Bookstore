@@ -18,7 +18,6 @@ public class BookController {
     @GetMapping("/display-books")
     public String displayAllBooks(Model model) {
         List<Book> books = bookService.findAll();
-        System.out.println(books.size());
         model.addAttribute("books", books);
         return "display-books";
     }
