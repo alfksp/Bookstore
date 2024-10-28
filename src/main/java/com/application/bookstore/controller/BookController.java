@@ -4,10 +4,8 @@ import com.application.bookstore.model.Book;
 import com.application.bookstore.service.BookService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -44,6 +42,16 @@ public class BookController {
         return "redirect:display-books";
     }
 
-
+    @DeleteMapping("/delete-book")
+    public String deleteBook(@RequestParam long id, RedirectAttributes redirectAttributes){
+        Book book = bookService.findById(id);
+        if(book != null){
+            bookService.delete(book);
+            redirectAttributes.addFlashAttribute("message", "Pozycja została usunięta");
+        }else{
+            redirectAttributes.addFlashAttribute("error", "Pozycja nie została odnaleziona");
+        }
+        return "redirect:display-books";
+    }
 }
 
