@@ -42,7 +42,7 @@ public class BookController {
         return "redirect:display-books";
     }
 
-    @DeleteMapping("/delete-book")
+    @PostMapping("/delete-book")
     public String deleteBook(@RequestParam long id, RedirectAttributes redirectAttributes){
         Book book = bookService.findById(id);
         if(book != null){

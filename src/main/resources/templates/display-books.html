@@ -6,6 +6,8 @@
 </head>
 <body>
 <h1>Wszystkie książki:</h1>
+<div th:if="${message}" th:text="${message}"></div>
+<div th:if="${error}" th:text="${error}"></div>
 <table>
     <thead>
     <tr>
@@ -15,6 +17,8 @@
         <th>Rok wydania</th>
         <th>Cena</th>
         <th>Dostępna ilość</th>
+        <th>Do koszyka</th>
+        <th>Usuń</th>
     </tr>
     </thead>
     <tbody>
@@ -27,8 +31,14 @@
         <td th:text="${book.booksAvailable}"></td>
         <td>
             <button>
-                <input type="button" value="Do koszyka">
+                <input type="button" onclick="alert('Dodano do koszyka!')" value="Do koszyka">
             </button>
+        </td>
+        <td>
+            <form th:action="@{/delete-book}" method="post" onsubmit="return confirm('Czy na pewno chcesz usunąć tę książkę?');">
+                <input type="hidden" th:name="id" th:value="${book.id}" />
+                <button type="submit">Usuń</button>
+            </form>
         </td>
     </tr>
     </tbody>
