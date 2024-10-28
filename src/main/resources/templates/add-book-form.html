@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dodaj nową książkę</title>
+</head>
+<body>
+<h1>Dodaj nową książkę</h1>
+<form th:action="@{/add-book}" th:object="${book}" method="post">
+    <table>
+        <tr>
+            <td><label for="title"></label>Tytuł</td>
+            <td><input type="text" id="title" th:field="*{title}"></td>
+        </tr>
+        <tr>
+            <td><label for="author"></label>Autor</td>
+            <td><input type="text" id="author" th:field="*{author}"></td>
+        </tr>
+        <tr>
+            <td><label for="year"></label>Rok wydania</td>
+            <td><input type="number" id="year" th:field="*{year}"></td>
+        </tr>
+        <tr>
+            <td><label for="price"></label>Cena</td>
+            <td><input type="number" step="any" id="price" th:field="*{price}"></td>
+        </tr>
+        <tr>
+            <td><label for="booksAvailable"></label>Dostępna ilość</td>
+            <td><input type="number" id="booksAvailable" th:field="*{booksAvailable}"></td>
+        </tr>
+    </table>
+    <div>
+        <input type="submit" value="Dodaj">
+        <input type="reset" value="Wyczyść">
+    </div>
+</form>
+</body>
+</html>

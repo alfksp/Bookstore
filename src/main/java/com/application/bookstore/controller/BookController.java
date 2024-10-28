@@ -32,7 +32,7 @@ public class BookController {
         return "display-book";
     }
 
-    @GetMapping("add-book-form")
+    @GetMapping("/add-book-form")
     public String addBookForm(Model model){
         model.addAttribute("book", new Book());
         return "add-book-form";
