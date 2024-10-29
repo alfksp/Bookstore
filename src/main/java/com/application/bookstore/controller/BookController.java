@@ -16,6 +16,12 @@ public class BookController {
     public BookController(BookService bookService) {
         this.bookService = bookService;
     }
+    @GetMapping("/main")
+    public String displayMainPage() {
+        return "main";
+    }
+
+
     @GetMapping("/display-books")
     public String displayAllBooks(Model model) {
         List<Book> books = bookService.findAll();
