@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Znajdź książkę</title>
+</head>
+<body>
+<h1>Znajdź książkę</h1>
+<form th:action="@{/display-book}" method="get">
+        <label for="bookId">Podaj ID</label>
+        <input type="number" id="bookId" name="id" required>
+        <input type="submit" value="Wyszukaj">
+        <input type="reset" value="Wyczyść">
+</form>
+<div th:if="${error != null}">
+    <p th:text="${error}"></p>
+</div>
+    <div>
+        <a href="/main">Powrót do strony głównej</a>
+    </div>
+</body>
+</html>

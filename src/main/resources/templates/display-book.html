@@ -5,8 +5,8 @@
     <title>Szczegóły książki</title>
 </head>
 <body>
-<h1>Szczegóły książki</h1>
 <div th:if="${book != null}">
+    <h1>Szczegóły książki</h1>
     <table>
         <thead>
         <tr>
@@ -35,6 +35,9 @@
 </div>
 <div>
     <a href="/main">Powrót do strony głównej</a>
+</div>
+<div>
+    <a href="/display-book-form">Powrót do wyszukiwania</a>
 </div>
 </body>
 </html>

@@ -29,9 +29,19 @@ public class BookController {
         return "display-books";
     }
 
-    @GetMapping("/display-book/{id}")
-    public String displayBookById(@PathVariable long id, Model model){
+    @GetMapping("/display-book-form")
+    public String displayBookForm(Model model){
+        model.addAttribute("bookID", null);
+        return "display-book-form";
+    }
+
+    @GetMapping("/display-book")
+    public String displayBookById(@RequestParam long id, Model model){
         Book book = bookService.findById(id);
+        if(book == null){
+            model.addAttribute("error", "Book o podanym ID nie została odnaleziona");
+            return "display-book-form";
+        }
         model.addAttribute("book", book);
         return "display-book";
     }
