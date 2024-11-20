@@ -34,4 +34,9 @@ public class BookService {
         log.info("Deleting book: " + book);
         bookRepository.delete(book);
     }
+
+    public Book edit(Book book) {
+        log.info("Updating book: " + book.getId());
+        return bookRepository.save(book);
+    }
 }

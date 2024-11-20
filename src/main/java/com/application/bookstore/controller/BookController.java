@@ -69,5 +69,11 @@ public class BookController {
         }
         return "redirect:display-books";
     }
+
+    @PostMapping("/edit-book")
+    public String editBook(@ModelAttribute("book") Book book){
+            bookService.edit(book);
+        return "redirect:display-books";
+    }
 }
 
