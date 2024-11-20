@@ -44,7 +44,7 @@
         <td>
             <button class="editButton">Edytuj</button>
             <form th:action="@{/edit-book}" method="post" th:object="${book}" class="editForm" style="display: none">
-                <input type="hidden" th:name="id" th:value="*{id}" />
+                <input type="hidden" th:name="id" th:value="*{id}">
                 <div>
                     <label>
                         <input type="text" name="title" field="*{title}" placeholder="Tytuł">
@@ -91,7 +91,7 @@
     });
 
     document.querySelectorAll('.confirmButton').forEach(function (button){
-        button.addEventListener("click", function (e){
+        button.addEventListener("click", function (){
             var form = this.closest('form');
             if(confirm('Czy na pewno chcesz edytować parametry książki?')){
                 form.submit();

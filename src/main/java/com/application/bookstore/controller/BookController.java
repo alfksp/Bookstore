@@ -39,7 +39,7 @@ public class BookController {
     public String displayBookById(@RequestParam long id, Model model){
         Book book = bookService.findById(id);
         if(book == null){
-            model.addAttribute("error", "Book o podanym ID nie została odnaleziona");
+            model.addAttribute("error", "Książka o podanym ID nie została odnaleziona");
             return "display-book-form";
         }
         model.addAttribute("book", book);
@@ -53,8 +53,14 @@ public class BookController {
     }
 
     @PostMapping("/add-book")
-    public String addBook(@ModelAttribute("book") Book book){
-        bookService.add(book);
+    public String addBook(@ModelAttribute("book") Book book, RedirectAttributes redirectAttributes){
+        try {
+            bookService.add(book);
+            redirectAttributes.addFlashAttribute("message", "Książka zostałą dodana");
+        }catch (Exception e){
+            redirectAttributes.addFlashAttribute("error", "Błąd w dodawaniu książki");
+        }
+
         return "redirect:display-books";
     }
 
@@ -71,8 +77,14 @@ public class BookController {
     }
 
     @PostMapping("/edit-book")
-    public String editBook(@ModelAttribute("book") Book book){
+    public String editBook(@ModelAttribute("book") Book book, RedirectAttributes redirectAttributes){
+        try {
             bookService.edit(book);
+            redirectAttributes.addFlashAttribute("message", "Ksiązka została edytowana");
+        }catch (Exception e){
+            redirectAttributes.addFlashAttribute("error", "Błąd w edycji książki");
+        }
+
         return "redirect:display-books";
     }
 }
