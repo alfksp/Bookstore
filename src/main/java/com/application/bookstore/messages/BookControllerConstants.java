@@ -9,6 +9,7 @@ public class BookControllerConstants {
     public static final String BOOK_EDITED = "Book was edited";
     public static final String BOOK_NOT_EDITED = "Book was not edited";
     public static final String BOOK_DELETED = "Book was deleted";
+    public static final String ALL_FIELDS_REQUIRED = "All fields must be filled";
     public static final String REDIRECT_DISPLAY_BOOKS = "redirect:display-books";
 
 

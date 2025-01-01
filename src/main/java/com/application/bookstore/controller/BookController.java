@@ -4,6 +4,8 @@ import com.application.bookstore.model.Book;
 import com.application.bookstore.service.BookService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -55,7 +57,11 @@ public class BookController {
     }
 
     @PostMapping("/add-book")
-    public String addBook(@ModelAttribute("book") Book book, RedirectAttributes redirectAttributes){
+    public String addBook(@ModelAttribute("book") @Validated Book book, BindingResult bindingResult, RedirectAttributes redirectAttributes){
+        if (bindingResult.hasErrors()) {
+            redirectAttributes.addFlashAttribute(ERROR, ALL_FIELDS_REQUIRED);
+            return "add-book-form";
+        }
         try {
             bookService.add(book);
             redirectAttributes.addFlashAttribute(SUCCESS, BOOK_ADDED);
@@ -87,7 +93,7 @@ public class BookController {
             redirectAttributes.addFlashAttribute(ERROR, BOOK_NOT_EDITED);
         }
 
-        return "redirect:display-books";
+        return  REDIRECT_DISPLAY_BOOKS;
     }
 }
 
