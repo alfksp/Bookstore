@@ -57,7 +57,7 @@ public class BookController {
     }
 
     @PostMapping("/add-book")
-    public String addBook(@ModelAttribute("book") @Validated Book book, BindingResult bindingResult, RedirectAttributes redirectAttributes){
+    public String addBook(@ModelAttribute("book") Book book, BindingResult bindingResult, RedirectAttributes redirectAttributes){
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute(ERROR, ALL_FIELDS_REQUIRED);
             return "add-book-form";

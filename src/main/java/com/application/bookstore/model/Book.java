@@ -1,9 +1,14 @@
 package com.application.bookstore.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.Collection;
 
 @Entity
 @Table(name = "BOOKS")
@@ -16,13 +21,18 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "TITLE")
+    @NotEmpty(message = "Title required")
     private String title;
     @Column(name = "AUTHOR")
+    @NotEmpty(message = "Author required")
     private String author;
     @Column(name = "YEAR")
+    @NotNull(message = "Year required")
     private int year;
     @Column(name = "PRICE")
+    @NotNull(message = "Price required")
     private double price;
     @Column(name = "BOOKS_AVAILABLE")
+    @NotNull(message = "Price required")
     private int booksAvailable;
 }
