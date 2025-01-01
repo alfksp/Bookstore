@@ -39,7 +39,7 @@ public class BookController {
     public String displayBookById(@RequestParam long id, Model model){
         Book book = bookService.findById(id);
         if(book == null){
-            model.addAttribute("error", "Książka o podanym ID nie została odnaleziona");
+            model.addAttribute("error", "Book with given ID wasn't found");
             return "display-book-form";
         }
         model.addAttribute("book", book);
@@ -56,9 +56,9 @@ public class BookController {
     public String addBook(@ModelAttribute("book") Book book, RedirectAttributes redirectAttributes){
         try {
             bookService.add(book);
-            redirectAttributes.addFlashAttribute("message", "Książka zostałą dodana");
+            redirectAttributes.addFlashAttribute("message", "Book was added");
         }catch (Exception e){
-            redirectAttributes.addFlashAttribute("error", "Błąd w dodawaniu książki");
+            redirectAttributes.addFlashAttribute("error", "Adding book error");
         }
 
         return "redirect:display-books";
@@ -69,9 +69,9 @@ public class BookController {
         Book book = bookService.findById(id);
         if(book != null){
             bookService.delete(book);
-            redirectAttributes.addFlashAttribute("message", "Pozycja została usunięta");
+            redirectAttributes.addFlashAttribute("message", "Book was deleted");
         }else{
-            redirectAttributes.addFlashAttribute("error", "Pozycja nie została odnaleziona");
+            redirectAttributes.addFlashAttribute("error", "Book wasn't found");
         }
         return "redirect:display-books";
     }
@@ -80,9 +80,9 @@ public class BookController {
     public String editBook(@ModelAttribute("book") Book book, RedirectAttributes redirectAttributes){
         try {
             bookService.edit(book);
-            redirectAttributes.addFlashAttribute("message", "Ksiązka została edytowana");
+            redirectAttributes.addFlashAttribute("message", "Book was edited");
         }catch (Exception e){
-            redirectAttributes.addFlashAttribute("error", "Błąd w edycji książki");
+            redirectAttributes.addFlashAttribute("error", "Editing book error");
         }
 
         return "redirect:display-books";
