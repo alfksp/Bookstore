@@ -9,6 +9,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
+import static com.application.bookstore.messages.BookControllerConstants.*;
+
 @Controller
 public class BookController {
     private final BookService bookService;
@@ -39,7 +41,7 @@ public class BookController {
     public String displayBookById(@RequestParam long id, Model model){
         Book book = bookService.findById(id);
         if(book == null){
-            model.addAttribute("error", "Book with given ID wasn't found");
+            model.addAttribute(ERROR, BOOK_NOT_FOUND);
             return "display-book-form";
         }
         model.addAttribute("book", book);
@@ -56,12 +58,12 @@ public class BookController {
     public String addBook(@ModelAttribute("book") Book book, RedirectAttributes redirectAttributes){
         try {
             bookService.add(book);
-            redirectAttributes.addFlashAttribute("message", "Book was added");
+            redirectAttributes.addFlashAttribute(SUCCESS, BOOK_ADDED);
         }catch (Exception e){
-            redirectAttributes.addFlashAttribute("error", "Adding book error");
+            redirectAttributes.addFlashAttribute(ERROR, BOOK_NOT_ADDED);
         }
 
-        return "redirect:display-books";
+        return REDIRECT_DISPLAY_BOOKS;
     }
 
     @PostMapping("/delete-book")
@@ -69,20 +71,20 @@ public class BookController {
         Book book = bookService.findById(id);
         if(book != null){
             bookService.delete(book);
-            redirectAttributes.addFlashAttribute("message", "Book was deleted");
+            redirectAttributes.addFlashAttribute(SUCCESS, BOOK_DELETED);
         }else{
-            redirectAttributes.addFlashAttribute("error", "Book wasn't found");
+            redirectAttributes.addFlashAttribute(ERROR, BOOK_NOT_FOUND);
         }
-        return "redirect:display-books";
+        return REDIRECT_DISPLAY_BOOKS;
     }
 
     @PostMapping("/edit-book")
     public String editBook(@ModelAttribute("book") Book book, RedirectAttributes redirectAttributes){
         try {
             bookService.edit(book);
-            redirectAttributes.addFlashAttribute("message", "Book was edited");
+            redirectAttributes.addFlashAttribute(SUCCESS, BOOK_EDITED);
         }catch (Exception e){
-            redirectAttributes.addFlashAttribute("error", "Editing book error");
+            redirectAttributes.addFlashAttribute(ERROR, BOOK_NOT_EDITED);
         }
 
         return "redirect:display-books";
