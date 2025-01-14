@@ -35,4 +35,7 @@ public class Book {
     @Column(name = "BOOKS_AVAILABLE")
     @NotNull(message = "Price required")
     private int booksAvailable;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "cart_id")
+    private Cart cart;
 }
