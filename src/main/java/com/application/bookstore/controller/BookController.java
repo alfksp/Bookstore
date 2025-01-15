@@ -5,7 +5,6 @@ import com.application.bookstore.service.BookService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -20,6 +19,7 @@ public class BookController {
     public BookController(BookService bookService) {
         this.bookService = bookService;
     }
+
     @GetMapping("/main")
     public String displayMainPage() {
         return "main";
@@ -95,5 +95,6 @@ public class BookController {
 
         return  REDIRECT_DISPLAY_BOOKS;
     }
+
 }
 
