@@ -10,7 +10,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Slf4j
@@ -30,14 +29,9 @@ public class CartService {
         return cartRepository.findAll();
     }
 
-    public Cart findById(int id) {
-        log.info("Display cart by id: {}", id);
-        return cartRepository.findById(id);
-    }
-
-    public Cart create(Cart cart) {
-        log.info("Create new cart: {}", cart);
-        return cartRepository.save(cart);
+    public void findByCustomer(Customer customer) {
+        Customer customerId = customerRepository.findById(customer.getId());
+        cartRepository.findByCustomer(customerId);
     }
 
     public Cart addToCart(long customerId, long bookId){
@@ -66,7 +60,5 @@ public class CartService {
         cart.getBooks().add(book);
         log.info("Book with ID: {} was added to the cart", bookId);
         return cartRepository.save(cart);
-
     }
-
 }
