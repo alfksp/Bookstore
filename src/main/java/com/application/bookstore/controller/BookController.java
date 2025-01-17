@@ -10,7 +10,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
-import static com.application.bookstore.messages.BookControllerConstants.*;
+import static com.application.bookstore.constants.BookControllerConstants.*;
 
 @Controller
 public class BookController {
@@ -34,15 +34,15 @@ public class BookController {
     }
 
     @GetMapping("/display-book-form")
-    public String displayBookForm(Model model){
+    public String displayBookForm(Model model) {
         model.addAttribute("bookID", null);
         return "display-book-form";
     }
 
     @GetMapping("/display-book")
-    public String displayBookById(@RequestParam long id, Model model){
+    public String displayBookById(@RequestParam long id, Model model) {
         Book book = bookService.findById(id);
-        if(book == null){
+        if (book == null) {
             model.addAttribute(ERROR, BOOK_NOT_FOUND);
             return "display-book-form";
         }
@@ -51,13 +51,13 @@ public class BookController {
     }
 
     @GetMapping("/add-book-form")
-    public String addBookForm(Model model){
+    public String addBookForm(Model model) {
         model.addAttribute("book", new Book());
         return "add-book-form";
     }
 
     @PostMapping("/add-book")
-    public String addBook(@ModelAttribute("book") Book book, BindingResult bindingResult, RedirectAttributes redirectAttributes){
+    public String addBook(@ModelAttribute("book") Book book, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute(ERROR, ALL_FIELDS_REQUIRED);
             return "add-book-form";
@@ -65,7 +65,7 @@ public class BookController {
         try {
             bookService.add(book);
             redirectAttributes.addFlashAttribute(SUCCESS, BOOK_ADDED);
-        }catch (Exception e){
+        } catch (Exception e) {
             redirectAttributes.addFlashAttribute(ERROR, BOOK_NOT_ADDED);
         }
 
@@ -73,27 +73,27 @@ public class BookController {
     }
 
     @PostMapping("/delete-book")
-    public String deleteBook(@RequestParam long id, RedirectAttributes redirectAttributes){
+    public String deleteBook(@RequestParam long id, RedirectAttributes redirectAttributes) {
         Book book = bookService.findById(id);
-        if(book != null){
+        if (book != null) {
             bookService.delete(book);
             redirectAttributes.addFlashAttribute(SUCCESS, BOOK_DELETED);
-        }else{
+        } else {
             redirectAttributes.addFlashAttribute(ERROR, BOOK_NOT_FOUND);
         }
         return REDIRECT_DISPLAY_BOOKS;
     }
 
     @PostMapping("/edit-book")
-    public String editBook(@ModelAttribute("book") Book book, RedirectAttributes redirectAttributes){
+    public String editBook(@ModelAttribute("book") Book book, RedirectAttributes redirectAttributes) {
         try {
             bookService.edit(book);
             redirectAttributes.addFlashAttribute(SUCCESS, BOOK_EDITED);
-        }catch (Exception e){
+        } catch (Exception e) {
             redirectAttributes.addFlashAttribute(ERROR, BOOK_NOT_EDITED);
         }
 
-        return  REDIRECT_DISPLAY_BOOKS;
+        return REDIRECT_DISPLAY_BOOKS;
     }
 
 }

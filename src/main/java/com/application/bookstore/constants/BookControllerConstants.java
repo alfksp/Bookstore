@@ -1,4 +1,4 @@
-package com.application.bookstore.messages;
+package com.application.bookstore.constants;
 
 public class BookControllerConstants {
     public static final String ERROR = "error";
