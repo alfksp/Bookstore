@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
+import static com.application.bookstore.constants.CartControllerConstants.*;
+
 @Controller
 public class CartController {
     private final CartService cartService;
@@ -28,13 +30,13 @@ public class CartController {
     @GetMapping("/display-cart")
     public String displayCart(Customer customer, Model model) {
         cartService.findByCustomer(customer);
-        return "display-cart";
+        return DISPLAY_CART;
     }
 
     @PostMapping("/add-to-cart")
     public String addToCart(long bookId, long userId, Model model){
         Cart cart = cartService.addToCart(bookId, userId);
         model.addAttribute("cart", cart);
-        return "redirect:/display-cart";
+        return "redirect:/" + DISPLAY_CART;
     }
 }
