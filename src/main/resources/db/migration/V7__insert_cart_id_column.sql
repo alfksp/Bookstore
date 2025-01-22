@@ -1,3 +1,0 @@
-USE bookstore;
-ALTER TABLE books
-ADD COLUMN cart_id BIGINT NOT NULL;

@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Table(name = "BOOKS")
@@ -32,10 +33,9 @@ public class Book {
     @Column(name = "PRICE")
     @NotNull(message = "Price required")
     private double price;
-    @Column(name = "BOOKS_AVAILABLE")
+    @Column(name = "BOOKSAVAILABLE")
     @NotNull(message = "Price required")
     private int booksAvailable;
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "cart_id")
-    private Cart cart;
+    @ManyToMany(mappedBy = "books")
+    private List<Cart> carts;
 }

@@ -1,6 +1,6 @@
-use bookstore;
-insert into customers(name, surname, email, password)
-values
+USE bookstore;
+INSERT INTO customers(name, surname, email, password)
+VALUES
     ('Jan', 'Kowalski', 'jankowalski@email.com', 'password1'),
     ('Anna', 'Nowak', 'annanowak@email.com', 'password2'),
     ('Adrian', 'Gruszka', 'adriangruszka@email.com', 'password3'),

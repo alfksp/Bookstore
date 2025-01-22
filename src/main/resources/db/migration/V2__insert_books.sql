@@ -1,5 +1,5 @@
 use bookstore;
-insert into books (title, author, year, price, books_available)
+insert into books (title, author, year, price, booksAvailable)
 values
     ('Harry Potter and the Philosophers Stone', 'J.K. Rowling', 1997, 26.15, 10),
     ('Master and Margarita', 'Mikhail Bulgakov', 1967, 39.50, 5),
