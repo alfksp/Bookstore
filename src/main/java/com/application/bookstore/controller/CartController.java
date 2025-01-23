@@ -1,12 +1,16 @@
 package com.application.bookstore.controller;
 
+import com.application.bookstore.model.Book;
 import com.application.bookstore.model.Cart;
 import com.application.bookstore.model.Customer;
+import com.application.bookstore.service.BookService;
 import com.application.bookstore.service.CartService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -24,11 +28,11 @@ public class CartController {
     public String displayCarts(Model model) {
         List<Cart> carts = cartService.findAll();
         model.addAttribute("carts", carts);
-        return "display-carts";
+        return DISPLAY_CARTS;
     }
 
     @GetMapping("/display-cart")
-    public String displayCart(Customer customer, Model model) {
+    public String displayCart(Customer customer,  Model model) {
         cartService.findByCustomer(customer);
         return DISPLAY_CART;
     }
@@ -38,5 +42,28 @@ public class CartController {
         Cart cart = cartService.addToCart(bookId, userId);
         model.addAttribute("cart", cart);
         return "redirect:/" + DISPLAY_CART;
+    }
+
+    @PostMapping("/delete-from-cart")
+    public String deleteFromCart(@RequestParam Book book, @RequestParam long cartId, RedirectAttributes redirectAttributes){
+        try{
+            cartService.deleteFromCart(cartId, book);
+            redirectAttributes.addFlashAttribute(SUCCESS, BOOK_DELETED_FROM_CART);
+        }catch (Exception e){
+            redirectAttributes.addFlashAttribute(ERROR, BOOKS_NOT_FOUND);
+        }
+        return DISPLAY_CART;
+    }
+
+    @PostMapping("/delete-cart")
+    public String deleteCart(@RequestParam long cartId, RedirectAttributes redirectAttributes){
+        Cart cart = cartService.findById(cartId);
+        if (cart != null) {
+            cartService.deleteCart(cart);
+            redirectAttributes.addFlashAttribute(SUCCESS, CART_DELETED);
+        } else {
+            redirectAttributes.addFlashAttribute(ERROR, CART_NOT_FOUND);
+        }
+        return "redirect:/" + DISPLAY_CARTS;
     }
 }
