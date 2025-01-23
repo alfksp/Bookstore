@@ -29,6 +29,11 @@ public class CartService {
         return cartRepository.findAll();
     }
 
+    public Cart findById(Long id) {
+        log.info("Display cart by id: {}", id);
+        return cartRepository.findById(id);
+    }
+
     public void findByCustomer(Customer customer) {
         Customer customerId = customerRepository.findById(customer.getId());
         cartRepository.findByCustomer(customerId);
@@ -61,4 +66,15 @@ public class CartService {
         log.info("Book with ID: {} was added to the cart", bookId);
         return cartRepository.save(cart);
     }
+
+    public void deleteCart(Cart cart){
+        log.info("Deleting cart: " + cart);
+        cartRepository.delete(cart);
+    }
+
+   public List<Book> displayBooksInCart(long cartId){
+        log.info("Display all books in the cart");
+       Cart cartById = cartRepository.findById(cartId);
+       return cartById.getBooks();
+   }
 }
