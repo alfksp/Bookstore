@@ -72,6 +72,13 @@ public class CartService {
         cartRepository.delete(cart);
     }
 
+    public void deleteFromCart(long cartId, Book book){
+        log.info("Deleting book from cart: " + book);
+        Cart cart = cartRepository.findById(cartId);
+        cart.getBooks().remove(book);
+    }
+
+
    public List<Book> displayBooksInCart(long cartId){
         log.info("Display all books in the cart");
        Cart cartById = cartRepository.findById(cartId);
