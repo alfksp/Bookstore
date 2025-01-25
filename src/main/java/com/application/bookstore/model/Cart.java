@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -20,12 +21,11 @@ public class Cart {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "customer_id")
     private Customer customer;
-    @Column(name = "BOOK")
     @ManyToMany
     @JoinTable(
             name = "cart_books",
             joinColumns = @JoinColumn(name = "cart_id"),
             inverseJoinColumns = @JoinColumn(name = "book_id")
     )
-    private List<Book> books;
+    private List<Book> books = new ArrayList<>();
 }
