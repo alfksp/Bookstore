@@ -34,37 +34,39 @@ public class CartService {
         return cartRepository.findById(id);
     }
 
-    public void findByCustomer(Customer customer) {
+    public Cart findByCustomer(Customer customer) {
         Customer customerId = customerRepository.findById(customer.getId());
-        cartRepository.findByCustomer(customerId);
+        return cartRepository.findByCustomer(customerId);
     }
 
-    public Cart addToCart(long customerId, long bookId){
+    public Cart addToCart(Long bookId, Long customerId){
         log.info("Adding book to cart: CUSTOMER ID = {}, BOOK ID = {}", customerId, bookId);
-
-        Customer customer = customerRepository.findById(customerId);
-        if(customer == null) {
-            log.error("Customer with ID {} not found", customerId);
-        return null;
-        }
 
         Book book = bookRepository.findById(bookId);
         if(book == null) {
             log.error("Book with ID {} not found", bookId);
-        return null;
+            throw new RuntimeException("Book not found");
+        }
+
+        Customer customer = customerRepository.findById(customerId);
+        if(customer == null) {
+            log.error("Customer with ID {} not found", customerId);
+            throw new RuntimeException("Customer not found");
         }
 
         Cart cart = cartRepository.findByCustomer(customer);
         if(cart == null) {
             cart = new Cart();
             cart.setCustomer(customer);
+            cart.getBooks().add(book);
             cart = cartRepository.save(cart);
             log.info("New cart created for the customer with ID: {}", customerId);
-        }
-
+        }else{
         cart.getBooks().add(book);
         log.info("Book with ID: {} was added to the cart", bookId);
         return cartRepository.save(cart);
+    }
+    return cart;
     }
 
     public void deleteCart(Cart cart){
@@ -72,10 +74,27 @@ public class CartService {
         cartRepository.delete(cart);
     }
 
-    public void deleteFromCart(long cartId, Book book){
-        log.info("Deleting book from cart: " + book);
+    public void deleteFromCart(long cartId, long bookId){
+        log.info("Deleting book with ID: " + bookId + " from cart: " +cartId);
         Cart cart = cartRepository.findById(cartId);
-        cart.getBooks().remove(book);
+        if(cart == null) {
+            log.error("Cart with ID {} not found", cartId);
+            throw new RuntimeException("Cart with ID " + cartId + " not found");
+        }
+        Book book = bookRepository.findById(bookId);
+        if(book == null) {
+            log.error("Book with ID {} not found", bookId);
+            throw new RuntimeException("Book with ID " + bookId + " not found");
+        }
+        List<Book> books = cart.getBooks();
+        if(books.contains(book)) {
+            books.remove(book);
+            cartRepository.save(cart);
+            log.info("Book with ID: {} was removed from the cart", bookId);
+        }else{
+            log.warn("Book with ID: {} was not found in the cart", bookId);
+            throw new RuntimeException("Book with ID " + bookId + " was not found in the cart");
+        }
     }
 
 
