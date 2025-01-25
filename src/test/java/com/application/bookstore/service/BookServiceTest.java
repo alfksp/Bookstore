@@ -95,7 +95,7 @@ public class BookServiceTest {
     @Test
     void checkIfEdited() {
         //given
-        Book book = new Book(1L, "Author", "Title", 1990, 12.20, 3);
+        Book book = new Book();
 
         when(bookRepositoryMock.save(book)).thenReturn(book);
 
