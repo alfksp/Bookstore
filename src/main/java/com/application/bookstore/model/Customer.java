@@ -2,6 +2,7 @@ package com.application.bookstore.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 
 import java.util.List;
 
@@ -21,6 +22,10 @@ public class Customer {
     private String email;
     @Column(name = "PASSWORD")
     private String password;
+    @Transient
+    private String confirmPassword;
+    @Column(name = "USERNAME")
+    private String username;
     @OneToMany(mappedBy = "customer")
     private List<Cart> carts;
 }
