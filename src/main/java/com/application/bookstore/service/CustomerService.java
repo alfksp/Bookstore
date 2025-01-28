@@ -23,13 +23,13 @@ public class CustomerService {
         return customerRepository.findById(id);
     }
 
-    public void registerCustomer(Customer customer, String confirmPassword) {
+    public Customer registerCustomer(Customer customer, String confirmPassword) {
 if (customer.getPassword().equals(confirmPassword)) {
     throw new IllegalArgumentException("Passwords do not match");
 }
          String encodedPassword = passwordEncoder.encode(customer.getPassword());
         customer.setPassword(encodedPassword);
-        customerRepository.save(customer);
+        return customerRepository.save(customer);
 
     }
 

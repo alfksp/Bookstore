@@ -27,12 +27,6 @@ public class BookServiceTest {
     BookService bookService;
 
 
-//    @BeforeEach
-//    void setUp() {
-//        // Setup test data for books
-//        book = new Book(1L, "Book 1", "Author 1", 2020, 19.99, 10);
-//    }
-
     @Test
     void checkIfAllBooksAreFound() {
         //given
