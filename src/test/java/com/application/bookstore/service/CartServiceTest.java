@@ -1,7 +1,9 @@
 package com.application.bookstore.service;
 
 import com.application.bookstore.model.Cart;
+import com.application.bookstore.model.Customer;
 import com.application.bookstore.repository.CartRepository;
+import com.application.bookstore.repository.CustomerRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -20,12 +22,11 @@ class CartServiceTest {
     @Mock
     private CartRepository cartRepository;
 
+    @Mock
+    private CustomerRepository customerRepository;
+
     @InjectMocks
     private CartService cartService;
-
-//    void setUp(){
-//        Cart cart = new Cart();
-//    }
 
     @Test
     void checkIfAllCartsFound() {
@@ -54,7 +55,19 @@ class CartServiceTest {
     }
 
     @Test
-    void findByCustomer() {
+    void checkIfFoundByCustomer() {
+        Customer customer = new Customer();
+        customer.setId(1L);
+        Cart cart = new Cart();
+        cart.setCustomer(customer);
+
+        when(cartRepository.findByCustomer(customer)).thenReturn(cart);
+        when(customerRepository.findById(1L)).thenReturn(customer);
+
+        Cart cartFound = cartService.findByCustomer(customer);
+
+        assertNotNull(cartFound);
+        assertEquals(cart, cartFound);
     }
 
     @Test
