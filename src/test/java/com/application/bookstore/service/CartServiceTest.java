@@ -23,6 +23,10 @@ class CartServiceTest {
     @InjectMocks
     private CartService cartService;
 
+//    void setUp(){
+//        Cart cart = new Cart();
+//    }
+
     @Test
     void checkIfAllCartsFound() {
         List<Cart> carts = List.of(new Cart(), new Cart(), new Cart());
@@ -30,13 +34,23 @@ class CartServiceTest {
         when(cartRepository.findAll()).thenReturn(carts);
 
         List<Cart> cartsFound = cartService.findAll();
+
+        assertThat(cartsFound).isEqualTo(carts);
         assertEquals(carts.size(), cartsFound.size());
         assertEquals(carts.get(0), cartsFound.get(0));
         assertThat(cartsFound).hasSize(3);
     }
 
     @Test
-    void findById() {
+    void checkIfFoundById() {
+        Cart cart = new Cart();
+        when(cartRepository.findById(1L)).thenReturn(cart);
+
+        Cart cartFound = cartService.findById(1L);
+
+        assertNotNull(cartFound);
+        assertEquals(cart, cartFound);
+        assertEquals(cart.getId(), cartFound.getId());
     }
 
     @Test
