@@ -17,7 +17,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class CartServiceTest {
@@ -110,7 +110,22 @@ class CartServiceTest {
     }
 
     @Test
-    void deleteFromCart() {
+    void checkIfDeletedFromCart() {
+        Cart cart = new Cart();
+        Book book = new Book();
+        cart.setId(1L);
+        book.setId(1L);
+        List<Book> books = new ArrayList<>();
+        books.add(book);
+        cart.setBooks(books);
+
+        when(bookRepository.findById(1L)).thenReturn(book);
+        when(cartRepository.findById(1L)).thenReturn(cart);
+
+        cartService.deleteFromCart(cart.getId(), book.getId());
+
+        assertTrue(cart.getBooks().isEmpty());
+        verify(bookRepository, never()).delete(book);
     }
 
     @Test
