@@ -1,7 +1,9 @@
 package com.application.bookstore.service;
 
+import com.application.bookstore.model.Book;
 import com.application.bookstore.model.Cart;
 import com.application.bookstore.model.Customer;
+import com.application.bookstore.repository.BookRepository;
 import com.application.bookstore.repository.CartRepository;
 import com.application.bookstore.repository.CustomerRepository;
 import org.junit.jupiter.api.Test;
@@ -10,6 +12,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -24,6 +27,9 @@ class CartServiceTest {
 
     @Mock
     private CustomerRepository customerRepository;
+
+    @Mock
+    private BookRepository bookRepository;
 
     @InjectMocks
     private CartService cartService;
@@ -71,11 +77,36 @@ class CartServiceTest {
     }
 
     @Test
-    void addToCart() {
+    void checkIfAddedToCart() {
+        Cart cart = new Cart();
+        Customer customer = new Customer();
+
+        customer.setId(1L);
+
+        Book book = new Book();
+        book.setId(1L);
+
+      List<Book> books = new ArrayList<>();
+      books.add(book);
+
+        cart.setCustomer(customer);
+        cart.setBooks(books);
+
+        when(cartRepository.save(cart)).thenReturn(cart);
+        when(bookRepository.findById(1L)).thenReturn(book);
+        when(customerRepository.findById(1L)).thenReturn(customer);
+
+        Cart savedCart = cartService.addToCart(customer.getId(), book.getId());
+
+        assertNotNull(savedCart);
+        assertEquals(cart.getCustomer().getId(), savedCart.getCustomer().getId());
+        assertEquals(1, savedCart.getBooks().size());
+        assertEquals(book.getId(), savedCart.getBooks().get(0).getId());
     }
 
     @Test
     void deleteCart() {
+
     }
 
     @Test
