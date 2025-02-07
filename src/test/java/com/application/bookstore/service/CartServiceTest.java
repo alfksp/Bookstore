@@ -105,8 +105,17 @@ class CartServiceTest {
     }
 
     @Test
-    void deleteCart() {
+    void checkIfCartDeleted() {
+        Cart cart = new Cart();
+        List <Cart> carts = new ArrayList<>();
+        carts.add(cart);
 
+       when(cartRepository.findAll()).thenReturn(new ArrayList<>());
+
+        cartService.deleteCart(cart);
+
+        verify(cartRepository, times(1)).delete(cart);
+        assertTrue(cartRepository.findAll().isEmpty());
     }
 
     @Test
@@ -125,10 +134,25 @@ class CartServiceTest {
         cartService.deleteFromCart(cart.getId(), book.getId());
 
         assertTrue(cart.getBooks().isEmpty());
+        assertTrue(cartRepository.findAll().isEmpty());
         verify(bookRepository, never()).delete(book);
     }
 
     @Test
-    void displayBooksInCart() {
+    void checkIfBooksInCartDisplayed() {
+        Cart cart = new Cart();
+        Book book = new Book();
+        List<Book> books = new ArrayList<>();
+        books.add(book);
+        cart.setBooks(books);
+
+        when(cartRepository.findById(1L)).thenReturn(cart);
+
+        List<Book> booksResult = cartService.displayBooksInCart(1L);
+
+        assertNotNull(booksResult);
+        assertEquals(1, booksResult.size());
+        assertEquals(book.getId(), booksResult.get(0).getId());
+        assertEquals(book, booksResult.get(0));
     }
 }
