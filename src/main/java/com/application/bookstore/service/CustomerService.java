@@ -24,7 +24,7 @@ public class CustomerService {
     }
 
     public Customer registerCustomer(Customer customer, String confirmPassword) {
-if (customer.getPassword().equals(confirmPassword)) {
+if (!customer.getPassword().equals(confirmPassword)) {
     throw new IllegalArgumentException("Passwords do not match");
 }
          String encodedPassword = passwordEncoder.encode(customer.getPassword());

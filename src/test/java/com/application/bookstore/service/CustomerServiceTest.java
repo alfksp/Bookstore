@@ -29,8 +29,8 @@ class CustomerServiceTest {
         customer.setSurname("a");
         customer.setEmail("a");
         customer.setUsername("a");
-        customer.setPassword("b");
-        customer.setConfirmPassword("b");
+        customer.setPassword("a");
+        customer.setConfirmPassword("a");
     }
 
     @Test
@@ -53,7 +53,7 @@ class CustomerServiceTest {
 
         assertNotNull(saved);
         assertEquals("a", saved.getName());
-        assertEquals("b", saved.getConfirmPassword());
+        assertEquals("a", saved.getConfirmPassword());
     }
 
     @Test
