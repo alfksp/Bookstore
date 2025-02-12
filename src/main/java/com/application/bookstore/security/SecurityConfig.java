@@ -36,12 +36,12 @@ public class SecurityConfig {
                 .formLogin()
                 .loginPage("/login")
                 //.loginProcessingUrl("/authenticate")
-                //.defaultSuccessUrl("/main", true)
+                .defaultSuccessUrl("/main", true)
                 //.successForwardUrl("/main")
                 .permitAll()
                 .and()
                 .logout()
-                //.logoutSuccessUrl("/login?logout")
+                .logoutSuccessUrl("/login?logout")
                 .permitAll();
         return http.build();
     }
