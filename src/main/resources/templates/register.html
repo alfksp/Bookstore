@@ -14,33 +14,33 @@
         }
     </style>
 </head>
-<body class="font-style justify-content-center align-items-center" style="background-image: url('../images/background.jpg'); background-size: cover; background-position: center center; background-attachment: fixed; height: 100vh">
+<body class="font-style justify-content-center align-items-center" style="background-image: url('../static/images/background.jpg'); background-size: cover; background-position: center center; background-attachment: fixed; height: 100vh">
 <div class="container" style="max-width: 500px; padding: 30px; background-color: white; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
     <h1 class="text-center">Register</h1>
-    <form action="/register" method="post">
+    <form action="/register" method="post" th:object="${customer}">
         <div class="mb-3">
             <label for="name" class="form-label">Name</label>
-            <input type="text" id="name" name="name" class="form-control" required>
+            <input type="text" id="name" name="name" class="form-control" th:field="*{name}" required>
         </div>
         <div class="mb-3">
             <label for="surname" class="form-label">Surname</label>
-            <input type="text" id="surname" name="surname" class="form-control" required>
+            <input type="text" id="surname" name="surname" class="form-control" th:field="*{surname}" required>
         </div>
         <div class="mb-3">
             <label for="email" class="form-label">Email</label>
-            <input type="text" id="email" name="email" class="form-control" required>
+            <input type="text" id="email" name="email" class="form-control" th:field="*{email}" required>
         </div>
         <div class="mb-3">
             <label for="username" class="form-label">Username</label>
-            <input type="text" id="username" name="username" class="form-control" required>
+            <input type="text" id="username" name="username" class="form-control" th:field="*{username}" required>
         </div>
         <div class="mb-3">
             <label for="password" class="form-label">Password</label>
-            <input type="password" id="password" name="password" class="form-control" required>
+            <input type="password" id="password" name="password" class="form-control" th:field="*{password}" required>
         </div>
         <div class="mb-3">
             <label for="confirmPassword" class="form-label">Confirm Password</label>
-            <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" required>
+            <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" th:field="*{confirmPassword}" required>
         </div>
         <button type="submit" class="btn btn-primary w-100">Register</button>
     </form>
