@@ -28,4 +28,11 @@ public class Customer {
     private String username;
     @OneToMany(mappedBy = "customer")
     private List<Cart> carts;
+    @ManyToMany
+    @JoinTable(
+            name = "customers_roles",
+            joinColumns = @JoinColumn(name = "customer_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_name")
+    )
+    private List<Role> roles;
 }
