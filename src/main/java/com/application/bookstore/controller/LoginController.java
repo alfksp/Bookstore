@@ -11,14 +11,13 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class LoginController {
+
     private final CustomerService customerService;
     private final PasswordEncoder passwordEncoder;
-
 
     public LoginController(CustomerService customerService, PasswordEncoder passwordEncoder) {
         this.customerService = customerService;
         this.passwordEncoder = passwordEncoder;
-
     }
 
     @GetMapping("/login")
@@ -47,9 +46,9 @@ public class LoginController {
         }
     }
 
-    @GetMapping("/login?error=true")
-    public String showLoginErrorPage(Model model) {
-        model.addAttribute("error", "Invalid username or password");
-        return "login-form";
-    }
+//    @GetMapping("/login?error=true")
+//    public String showLoginErrorPage(Model model) {
+//        model.addAttribute("error", "Invalid username or password");
+//        return "login-form";
+//    }
 }
