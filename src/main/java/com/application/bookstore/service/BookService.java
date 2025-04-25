@@ -6,6 +6,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 @Slf4j
@@ -38,5 +40,13 @@ public class BookService {
     public Book edit(Book book) {
         log.info("Updating book: " + book.getId());
         return bookRepository.save(book);
+    }
+
+    public List<Book> findByAuthor(List<Book> books, String author){
+        log.info("Display books by author: " + author);
+        List<Book> booksByAuthor = books.stream()
+                .filter(book -> book.getAuthor().equals(author))
+                .collect(Collectors.toList());
+        return bookRepository.findByAuthor(booksByAuthor, author);
     }
 }
