@@ -90,5 +90,22 @@ public class BookController {
         return REDIRECT_DISPLAY_BOOKS;
     }
 
+    @GetMapping("/display-books-by-author-form")
+    public String displayBooksByAuthorForm(Model model){
+        model.addAttribute("author", null);
+        return "display-books-by-author-form";
+    }
+
+    @GetMapping("/display-books-by-author")
+    public String displayBooksByAuthor(@RequestParam String author, Model model) {
+        List<Book> booksByAuthor = bookService.findByAuthor(author);
+        if (booksByAuthor.isEmpty()) {
+            model.addAttribute(ERROR, "There are no books of this author in our bookstore");
+            return "display-books-by-author-form";
+        }
+        model.addAttribute("booksByAuthor", booksByAuthor);
+        return "display-books-by-author";
+    }
+
 }
 

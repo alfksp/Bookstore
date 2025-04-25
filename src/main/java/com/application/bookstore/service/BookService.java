@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static java.util.Arrays.stream;
+
 @Service
 @Slf4j
 public class BookService {
@@ -42,11 +44,8 @@ public class BookService {
         return bookRepository.save(book);
     }
 
-    public List<Book> findByAuthor(List<Book> books, String author){
+    public List<Book> findByAuthor(String author){
         log.info("Display books by author: " + author);
-        List<Book> booksByAuthor = books.stream()
-                .filter(book -> book.getAuthor().equals(author))
-                .collect(Collectors.toList());
-        return bookRepository.findByAuthor(booksByAuthor, author);
+        return bookRepository.findByAuthor(author);
     }
 }

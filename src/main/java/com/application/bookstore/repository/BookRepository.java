@@ -16,6 +16,7 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
 
     void delete(Book book);
 
-    List<Book> findByAuthor(List<Book> books, String author);
+    List<Book> findByAuthor(String author);
+
 }
 
