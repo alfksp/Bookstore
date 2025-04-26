@@ -20,12 +20,10 @@ import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class BookServiceTest {
-
     @Mock
-    BookRepository bookRepositoryMock;
+    BookRepository bookRepositoryMock;;
     @InjectMocks
     BookService bookService;
-
 
     @Test
     void checkIfAllBooksAreFound() {
