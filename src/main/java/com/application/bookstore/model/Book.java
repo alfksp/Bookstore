@@ -38,4 +38,6 @@ public class Book {
     private int booksAvailable;
     @ManyToMany(mappedBy = "books")
     private List<Cart> carts;
+    @Column(name = "RETURNED")
+    public boolean isReturned;
 }
